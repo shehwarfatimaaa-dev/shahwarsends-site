@@ -1,0 +1,294 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><script>(function(){
+try{history.scrollRestoration='manual'}catch(e){}
+function go(){var id=location.hash.slice(1),el=id&&document.getElementById(decodeURIComponent(id));
+  if(el){var y=el.getBoundingClientRect().top+scrollY-80;window.scrollTo({top:Math.max(0,y),behavior:'instant'})}
+  else{window.scrollTo({top:0,left:0,behavior:'instant'});var a=document.getElementById('pagetop');if(a&&a.scrollIntoView)a.scrollIntoView({block:'start',behavior:'instant'})}}
+document.addEventListener('DOMContentLoaded',function(){
+  var a=document.createElement('div');a.id='pagetop';a.setAttribute('aria-hidden','true');a.style.cssText='position:absolute;top:0;left:0;width:1px;height:1px';document.body.prepend(a);go();
+  document.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('a[href*="#"]');if(!l)return;
+    var u=new URL(l.href,location.href);if(u.pathname!==location.pathname||!u.hash)return;
+    var t=document.getElementById(decodeURIComponent(u.hash.slice(1)));if(!t)return;e.preventDefault();
+    window.scrollTo({top:t.getBoundingClientRect().top+scrollY-80,behavior:'smooth'});history.replaceState(null,'',u.hash)});
+});
+addEventListener('load',go);addEventListener('pageshow',function(e){if(e.persisted)go()});
+})();</script>
+<title>Flows vs Campaigns: What Should the Revenue Split Be?</title><meta name="description" content="Flows vs campaigns revenue split: what Klaviyo and Omnisend data say about the share of email revenue from automated flows, and what a healthy mix looks like."><meta name="keywords" content="flows vs campaigns revenue split, klaviyo flows vs campaigns, flow revenue percentage, automated email revenue share, email automation vs campaigns, klaviyo flow revenue benchmark">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>:root{color-scheme:light;--raspberry:#D1184F;--raspberry-dark:#A8123F;--blush:#FBE9EF;--blush-2:#F6D3DE;--ink:#1A1A1A;--ink-2:#56575C;--ink-3:#8E8F95;--line:#ECE7E9;--grey:#F4F4F5;--charcoal:#2E3035;--green:#1E8E4E;--sans:'Work Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif}
+*{box-sizing:border-box}
+
+body{margin:0;background:#fff;color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+em,i{font-style:normal}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+strong,b{font-weight:600}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.r{color:var(--raspberry)}
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.stuck{border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{height:26px;width:auto;display:block}
+.menu{display:flex;gap:30px;font-size:15px;font-weight:500;color:var(--ink-2)}
+.menu a{transition:color .2s}
+.menu a:hover,.menu a.on{color:var(--raspberry)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--raspberry);color:#fff;font-weight:600;font-size:15px;padding:13px 22px;border-radius:999px;transition:background .25s,transform .25s,box-shadow .25s}
+.btn:hover{background:var(--raspberry-dark);transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(209,24,79,.6)}
+.btn svg{width:16px;height:16px;transition:transform .25s}
+.btn:hover svg{transform:translateX(3px)}
+.btn.lg{font-size:16px;padding:16px 28px}
+.btn.white{background:#fff;color:var(--raspberry)}
+.btn.white:hover{background:#fff;box-shadow:0 12px 28px -12px rgba(0,0,0,.45)}
+.js .rv{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--raspberry)}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--raspberry);border-radius:2px}
+.cat{font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--raspberry)}
+.more{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:600;color:var(--ink)}
+.more svg{width:15px;height:15px;color:var(--raspberry);transition:transform .25s}
+a:hover>.more svg,a:hover .more svg{transform:translateX(4px)}
+.cover{display:block;width:100%;height:100%}
+.cover .bar{transform-origin:bottom;transform-box:fill-box;animation:grow 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*.09s + .2s)}
+@keyframes grow{from{transform:scaleY(.15)}}
+.cover .dash{animation:march 1.6s linear infinite}
+@keyframes march{to{stroke-dashoffset:-36}}
+.cover .bub{animation:bub 3.2s ease-in-out infinite;animation-delay:calc(var(--i,0)*.4s)}
+@keyframes bub{0%,100%{transform:translateY(0);opacity:1}50%{transform:translateY(-14px);opacity:.5}}
+.cover .spin{animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* index */
+.bhero{padding-top:64px;padding-bottom:20px}
+.bhero h1{font-size:clamp(38px,5vw,66px);font-weight:600;letter-spacing:-.035em;line-height:1.04;margin-top:18px;max-width:16ch;text-wrap:balance}
+.lead{font-size:19px;color:var(--ink-2);margin-top:20px;max-width:58ch}
+.feat{display:grid;align-items:center;grid-template-columns:1.15fr .85fr;margin-top:48px;border:1px solid var(--line);border-radius:28px;overflow:hidden;background:#FBE9EF;transition:box-shadow .4s,transform .4s,border-color .4s}
+.feat:hover{transform:translateY(-4px);box-shadow:0 40px 80px -50px rgba(26,26,26,.4);border-color:var(--blush-2)}
+.feat-c{overflow:hidden;aspect-ratio:16/9}
+.feat-c .cover,.card-c .cover{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.feat:hover .cover,.card:hover .cover{transform:scale(1.04)}
+.feat-b{background:#fff;align-self:stretch;padding:40px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.feat-b h2{font-size:clamp(24px,2.5vw,32px);font-weight:600;letter-spacing:-.025em;line-height:1.15}
+.feat-b p{color:var(--ink-2);font-size:16.5px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:56px 0 28px}
+.chip{font:inherit;font-size:15px;font-weight:500;border:1px solid var(--line);background:#fff;color:var(--ink-2);border-radius:999px;padding:9px 18px;cursor:pointer;transition:all .25s}
+.chip:hover{border-color:var(--raspberry);color:var(--raspberry)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#fff;transition:transform .35s,box-shadow .35s,border-color .35s,opacity .7s}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -36px rgba(26,26,26,.4);border-color:var(--blush-2)}
+.card.hide{display:none}
+.card-c{aspect-ratio:16/9;overflow:hidden}
+.card-b{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.card p{font-size:15.5px;color:var(--ink-2);line-height:1.55;flex:1}
+
+/* post */
+.prog{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--raspberry);transform:scaleX(0);transform-origin:left;z-index:60}
+.post-h{padding-top:48px}
+.crumb{font-size:14px;color:var(--ink-3);display:flex;gap:8px}
+.crumb a:hover{color:var(--raspberry)}
+.post-h h1{font-size:clamp(32px,4.2vw,54px);font-weight:600;letter-spacing:-.035em;line-height:1.08;margin-top:18px;max-width:20ch;text-wrap:balance}
+.byline{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:22px;font-size:15px;color:var(--ink-2)}
+.byline b{color:var(--ink)}
+.av{width:34px;height:34px;border-radius:50%;background:var(--raspberry);color:#fff;font-weight:600;display:grid;place-items:center}
+.dot{width:4px;height:4px;border-radius:50%;background:var(--ink-3)}
+.post-cover{margin-top:34px;border-radius:28px;overflow:hidden;aspect-ratio:16/7.2}
+.post-g{display:grid;grid-template-columns:230px minmax(0,720px);gap:64px;justify-content:center;padding-top:56px}
+.toc{position:sticky;top:104px;align-self:start;font-size:14.5px}
+.toc b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.toc ol{margin-top:12px;border-left:2px solid var(--line)}
+.toc a{display:block;padding:6px 0 6px 14px;margin-left:-2px;border-left:2px solid transparent;color:var(--ink-2);line-height:1.4;transition:color .2s,border-color .2s}
+.toc a:hover,.toc a.on{color:var(--raspberry);border-color:var(--raspberry)}
+.post{font-size:18px}
+.post>p{margin-top:18px;color:#2B2B2E}
+.post>p a,.post li a,.callout a,.tbl a,.faq a{color:var(--raspberry);text-decoration:underline;text-decoration-color:var(--blush-2);text-underline-offset:3px;transition:text-decoration-color .2s}
+.post a:hover{text-decoration-color:var(--raspberry)}
+.post h2{font-size:clamp(25px,2.8vw,32px);font-weight:600;letter-spacing:-.025em;line-height:1.2;margin-top:56px;scroll-margin-top:96px}
+.post h3{font-size:21px;font-weight:600;letter-spacing:-.015em;line-height:1.3;margin-top:34px}
+.list{margin-top:16px;display:grid;gap:10px}
+.list li{position:relative;padding-left:26px;color:#2B2B2E}
+ul.list li::before{content:"";position:absolute;left:4px;top:.72em;width:8px;height:8px;border-radius:50%;background:var(--raspberry)}
+ol.list{counter-reset:n}
+ol.list li{counter-increment:n;padding-left:36px}
+ol.list li::before{content:counter(n);position:absolute;left:0;top:.2em;width:24px;height:24px;border-radius:50%;background:var(--blush);color:var(--raspberry);font-size:13px;font-weight:600;display:grid;place-items:center}
+.tldr{background:var(--blush);border-radius:20px;padding:24px 26px}
+.tldr b{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--raspberry)}
+.tldr p{margin-top:6px;font-size:19px;font-weight:500;line-height:1.5;letter-spacing:-.01em}
+.callout{margin-top:26px;border-left:3px solid var(--raspberry);background:var(--grey);border-radius:0 16px 16px 0;padding:18px 22px}
+.callout b{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--raspberry)}
+.callout p{margin-top:4px;font-size:17px}
+.pullq{margin-top:34px!important;font-size:clamp(23px,2.6vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.3;color:var(--ink)!important;padding-left:22px;border-left:3px solid var(--raspberry)}
+.fig-t{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.check,.flowfig,.barsfig,.mail,.tbl{margin-top:30px}
+.check{border:1px solid var(--line);border-radius:20px;padding:24px 26px}
+.check ul{display:grid;gap:11px}
+.check li{position:relative;padding-left:34px;font-size:16.5px;line-height:1.5}
+.check li::before{content:"";position:absolute;left:0;top:2px;width:22px;height:22px;border-radius:7px;background:var(--raspberry) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6 11.4l3.200 3.200L16 7.800' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain}
+.tbl-s{overflow-x:auto;border:1px solid var(--line);border-radius:18px}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.5;min-width:520px}
+th{text-align:left;font-weight:600;background:var(--grey);padding:13px 16px;white-space:nowrap}
+td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top;color:#2B2B2E}
+td:first-child{font-weight:600;color:var(--ink)}
+tbody tr{transition:background .2s}
+tbody tr:hover{background:#FDF6F8}
+figcaption{font-size:14px;color:var(--ink-3);margin-top:10px}
+.flowfig{background:var(--grey);border-radius:24px;padding:26px}
+.flowfig ol{display:grid;gap:0;max-width:440px}
+.flowfig li{position:relative;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;transition-delay:calc(var(--i)*.12s + .15s)}
+.flowfig.in li{opacity:1;transform:none}
+.flowfig li+li{margin-top:22px}
+.flowfig li+li::before{content:"";position:absolute;left:25px;top:-22px;height:22px;width:2px;background:repeating-linear-gradient(var(--blush-2) 0 4px,transparent 4px 8px)}
+.fs{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 16px 12px 12px;font-size:16px;font-weight:500;line-height:1.35;box-shadow:0 10px 24px -18px rgba(26,26,26,.3)}
+.fs i{flex:none;width:36px;height:36px;border-radius:11px;background:var(--blush);color:var(--raspberry);display:grid;place-items:center}
+.fs svg,.fw svg{width:19px;height:19px}
+.fs small{display:block;font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.k-trigger i{background:var(--raspberry);color:#fff}
+.k-sms i{background:#E3F5EA;color:var(--green)}
+.k-split i{background:var(--ink);color:#fff}
+.fw span{display:inline-flex;align-items:center;gap:8px;margin-left:8px;font-size:14px;font-weight:500;color:var(--ink-2);background:#fff;border:1px dashed #D9D4D6;border-radius:999px;padding:6px 14px 6px 10px}
+.barsfig{border:1px solid var(--line);border-radius:20px;padding:24px 26px}
+.br{display:grid;grid-template-columns:minmax(0,200px) 1fr 62px;gap:14px;align-items:center;font-size:15px;line-height:1.3;margin-top:12px;color:var(--ink-2)}
+.bt{height:14px;border-radius:999px;background:var(--grey);overflow:hidden}
+.bt i{display:block;height:100%;width:0;border-radius:999px;background:var(--raspberry);transition:width 1.4s cubic-bezier(.3,.6,.2,1) .2s}
+.barsfig.in .bt i{width:var(--w)}
+.br b{text-align:right;color:var(--ink);font-variant-numeric:tabular-nums}
+.mail{border:1px solid var(--line);border-radius:20px;overflow:hidden;max-width:520px;box-shadow:0 30px 60px -44px rgba(26,26,26,.4)}
+.mail-h{background:var(--grey);padding:18px 22px;position:relative}
+.mail-h b{display:block;font-size:17px;line-height:1.35;padding-right:84px}
+.mail-h small{display:block;font-size:14.5px;color:var(--ink-2);margin-top:2px}
+.ex{position:absolute;right:16px;top:16px;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink-2)}
+.mail-b{padding:22px;font-size:16px}
+.mail-b p+p{margin-top:10px}
+.mail-cta{display:inline-block;margin-top:16px;background:var(--raspberry);color:#fff;font-weight:600;font-size:15px;border-radius:999px;padding:10px 20px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq h2{margin-bottom:12px}
+.faq summary{cursor:pointer;list-style:none;font-weight:600;font-size:18px;padding:18px 40px 18px 0;position:relative;line-height:1.4}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:6px;top:12px;font-size:26px;font-weight:400;color:var(--raspberry);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--ink-2);font-size:17px}
+.case{display:block;margin-top:48px;background:var(--charcoal);color:#fff;border-radius:22px;padding:28px 30px;transition:transform .35s,box-shadow .35s}
+.case:hover{transform:translateY(-4px);box-shadow:0 30px 60px -34px rgba(26,26,26,.6)}
+.case small{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#FF6E97;font-weight:600}
+.case b{display:block;font-size:23px;letter-spacing:-.02em;line-height:1.25;margin:8px 0 14px}
+.case span{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.case svg{width:15px;height:15px;transition:transform .25s}
+.case:hover svg{transform:translateX(4px)}
+.sources{margin-top:44px;padding-top:24px;border-top:1px solid var(--line)}
+.sources h2{font-size:14px!important;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:0!important}
+.sources ol{margin-top:12px;display:grid;gap:6px;font-size:14.5px;color:var(--ink-2);list-style:decimal;padding-left:20px}
+.sources a{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;overflow-wrap:anywhere}
+.sources a:hover{color:var(--raspberry)}
+.morep{padding-top:96px}
+.morep>h2{font-size:clamp(26px,3vw,36px);font-weight:600;letter-spacing:-.03em;margin-bottom:28px}
+#book{padding-top:96px;padding-bottom:96px}
+.cta{background:var(--raspberry);color:#fff;border-radius:32px;padding:68px 40px;text-align:center;position:relative;overflow:hidden}
+.cta::before,.cta::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.cta::before{width:340px;height:340px;left:-110px;top:-150px}
+.cta::after{width:260px;height:260px;right:-80px;bottom:-130px}
+.cta h2{font-size:clamp(28px,3.4vw,42px);font-weight:600;letter-spacing:-.03em;line-height:1.1;max-width:18ch;margin:0 auto;position:relative;text-wrap:balance}
+.cta p{max-width:50ch;margin:16px auto 28px;opacity:.92;position:relative}
+.cta .btn{position:relative}
+footer{background:var(--charcoal);color:#C9CACE;padding:44px 0;font-size:14.5px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .logo{height:22px}
+footer nav{display:flex;gap:24px}
+footer a:hover{color:#fff}
+@media (max-width:980px){.menu{display:none}.feat{grid-template-columns:1fr}.feat-b{padding:28px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.post-g{grid-template-columns:minmax(0,720px);padding-top:40px}.toc{display:none}.post-cover{aspect-ratio:16/9}}
+@media (max-width:620px){body{font-size:16px}.wrap{padding-left:20px;padding-right:20px}.logo{height:22px}.nav .btn{padding:10px 16px;font-size:14px}.grid{grid-template-columns:1fr}.post{font-size:17px}.post-cover,.feat{border-radius:20px}.br{grid-template-columns:minmax(0,110px) 1fr 52px;font-size:13.5px}.flowfig,.check,.barsfig{padding:18px}.cta{padding:50px 22px;border-radius:24px}.chips{margin-top:40px;flex-wrap:nowrap;overflow-x:auto;margin-left:-20px;margin-right:-20px;padding:0 20px 6px;scrollbar-width:none}.chip{white-space:nowrap}#book,.morep{padding-top:64px}#book{padding-bottom:64px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js .rv,.flowfig li{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What percentage of email revenue should come from flows?", "acceptedAnswer": {"@type": "Answer", "text": "Published platform data puts it at 30% (Omnisend) to nearly 41% (Klaviyo). A common agency target is about half from flows and half from campaigns."}}, {"@type": "Question", "name": "What share of email sends are flows?", "acceptedAnswer": {"@type": "Answer", "text": "A very small share. Klaviyo's benchmarks put flows at 5.3% of sends and Omnisend's report puts automated emails at 2% of sends."}}, {"@type": "Question", "name": "Why do flows make more money per email than campaigns?", "acceptedAnswer": {"@type": "Answer", "text": "They are triggered by behavior, so they reach people at a moment of high intent with a relevant message. Klaviyo reports flow click rates of 5.58% against 1.69% for campaigns."}}, {"@type": "Question", "name": "Should I stop sending campaigns and focus on flows?", "acceptedAnswer": {"@type": "Answer", "text": "No. Flows only fire when people visit, sign up or buy, and campaigns bring subscribers back to the site. In Klaviyo's data campaigns still account for the larger share of email revenue."}}]}</script></head><body>
+<div class="prog" id="prog"></div><header class="nav" id="nav"><div class="wrap"><a href="index.html" aria-label="shahwarsends home"><svg class="logo" viewBox="-129.71 -382.14 2826.04 511.85" role="img" aria-label="shahwarsends"><path fill="#000000" transform="translate(0.000,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#000000" transform="translate(149.940,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V740H168V470Q195 512 242.5 535.0Q290 558 349 558Q411 558 461.0 531.5Q511 505 539.5 452.0Q568 399 568 323Z"/><path fill="#000000" transform="translate(340.131,0.000) scale(0.341113,-0.341113)" d="M303 557Q375 557 428.0 526.0Q481 495 507 448V548H599V0H507V102Q480 54 426.5 22.5Q373 -9 302 -9Q229 -9 170.0 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 303 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#000000" transform="translate(542.602,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V740H168V470Q195 512 242.5 535.0Q290 558 349 558Q411 558 461.0 531.5Q511 505 539.5 452.0Q568 399 568 323Z"/><path fill="#000000" transform="translate(732.793,0.000) scale(0.341113,-0.341113)" d="M807 548 636 0H542L410 435L278 0H184L12 548H105L231 88L367 548H460L593 87L717 548Z"/><path fill="#000000" transform="translate(984.384,0.000) scale(0.341113,-0.341113)" d="M303 557Q375 557 428.0 526.0Q481 495 507 448V548H599V0H507V102Q480 54 426.5 22.5Q373 -9 302 -9Q229 -9 170.0 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 303 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#000000" transform="translate(1186.855,0.000) scale(0.341113,-0.341113)" d="M345 558V464H321Q168 464 168 298V0H77V548H168V459Q192 506 236.5 532.0Q281 558 345 558Z"/><path fill="#D1184F" transform="translate(1285.969,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#D1184F" transform="translate(1435.908,0.000) scale(0.341113,-0.341113)" d="M574 240H136Q141 159 191.5 113.5Q242 68 314 68Q373 68 412.5 95.5Q452 123 468 169H566Q544 90 478.0 40.5Q412 -9 314 -9Q236 -9 174.5 26.0Q113 61 78.0 125.5Q43 190 43 275Q43 360 77.0 424.0Q111 488 172.5 522.5Q234 557 314 557Q392 557 452.0 523.0Q512 489 544.5 429.5Q577 370 577 295Q577 269 574 240ZM310 480Q241 480 192.5 436.0Q144 392 137 314H483Q483 366 460.0 403.5Q437 441 397.5 460.5Q358 480 310 480Z"/><path fill="#D1184F" transform="translate(1619.277,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V548H168V470Q195 512 241.5 535.0Q288 558 344 558Q444 558 506.0 497.5Q568 437 568 323Z"/><path fill="#D1184F" transform="translate(1809.468,0.000) scale(0.341113,-0.341113)" d="M304 557Q368 557 423.0 527.5Q478 498 507 450V740H599V0H507V103Q480 54 427.0 22.5Q374 -9 303 -9Q230 -9 170.5 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 304 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#D1184F" transform="translate(2011.939,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#D1184F" d="M 2566.61,-232.68 L 2320.56,-171.33 L 2384.50,-124.19 L 2290.21,-52.50 L 2485.24,-181.02 L 2414.85,-104.81 L 2451.66,-16.34 Z"/></svg></a>
+<nav class="menu" aria-label="Main"><a href="case-studies.html">Case studies</a><a href="index.html#designs">Designs</a><a href="about.html">About</a><a href="blog.html" class="on" aria-current="page">Blog</a><a href="contact.html">Contact</a></nav>
+<a class="btn" href="contact.html">Book a call</a></div></header>
+<main><header class="wrap post-h">
+<div class="crumb rv"><a href="blog.html">Blog</a><span>/</span><span>Benchmarks</span></div>
+<h1 class="rv">Flows vs Campaigns: What Should the Revenue Split Be?</h1>
+<div class="byline rv"><span class="av">S</span><span>By <b>Shahwar</b></span><span class="dot"></span><span>6 min read</span><span class="dot"></span><span>Updated October 2026</span></div>
+<div class="post-cover rv"><svg class="cover big" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Flows vs Campaigns: What Should the Revenue Split Be?">
+<rect width="800" height="450" fill="#2E3035"/><circle cx="700" cy="-40" r="260" fill="#44474E" opacity=".45"/>
+<text x="66" y="92" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="19" letter-spacing="3" fill="#FF4F82">BENCHMARKS</text>
+<rect x="64" y="110" width="44" height="4" rx="2" fill="#FF4F82"/><text x="64" y="222" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="84" letter-spacing="-3" fill="#FFFFFF">Flows vs</text><text x="64" y="312" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="84" letter-spacing="-3" fill="#FFFFFF">campaigns</text><g transform="translate(470 100)"><rect class="bar" x="0" y="120" width="34" height="110" rx="9" fill="#44474E" style="--i:0"/><rect class="bar" x="52" y="150" width="34" height="80" rx="9" fill="#44474E" style="--i:1"/><rect class="bar" x="104" y="70" width="34" height="160" rx="9" fill="#44474E" style="--i:2"/><rect class="bar" x="156" y="40" width="34" height="190" rx="9" fill="#44474E" style="--i:3"/><rect class="bar" x="208" y="15" width="34" height="215" rx="9" fill="#FF4F82" style="--i:4"/><path d="M-20 92h290" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3" stroke-dasharray="3 11" stroke-linecap="round"/>
+<circle cx="225" cy="-11" r="11" fill="#3A3D43" stroke="#FF4F82" stroke-width="6"/></g></svg></div></header>
+<div class="wrap post-g"><aside class="toc"><b>In this post</b><ol><li><a href="#the-difference-between-flows-and-campaigns">The difference between flows and campaigns</a></li><li><a href="#what-the-published-data-says">What the published data says</a></li><li><a href="#why-flows-earn-more-per-send">Why flows earn more per send</a></li><li><a href="#what-a-healthy-mix-looks-like">What a healthy mix looks like</a></li><li><a href="#what-it-means-if-you-are-far-off">What it means if you are far off</a></li><li><a href="#what-to-do-next">What to do next</a></li></ol></aside>
+<article class="post"><div class="tldr rv"><b>Short answer</b><p>Published data puts automated flows at roughly 30% to 41% of email revenue while making up only 2% to 5.3% of sends. A common working target is about half from flows and half from campaigns. If flows are far below 30% you are probably missing core automations, and if they carry most of your email revenue you are probably not sending enough campaigns.</p></div>
+<p>A healthy split is somewhere between <strong>40/60 and 50/50, flows to campaigns</strong>. Klaviyo's benchmark data shows flows producing nearly 41% of email revenue across its customers, Omnisend's shows 30%, and a common agency target is half and half.</p>
+<p>There is no single correct ratio. What matters is that neither side is being carried by the other, and that you know why your number sits where it does.</p>
+<h2 id="the-difference-between-flows-and-campaigns">The difference between flows and campaigns</h2>
+<p>A <strong>campaign</strong> is an email you write and send once to a list or segment at a time you choose. A product launch, a weekly newsletter, a sale announcement.</p>
+<p>A <strong>flow</strong> is an automated sequence that sends to one person at a time because of something they did, or did not do. They joined the list, left a cart, bought for the first time, or went quiet. You build it once and it keeps running.</p>
+<figure class="flowfig rv"><b class="fig-t">A simple abandoned checkout flow</b><ol><li class="fs k-trigger" style="--i:0"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L5 13h6l-1 8 8-10h-6z"/></svg></i><div><small>Trigger</small>Started checkout, no order</div></li><li class="fw" style="--i:1"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.500V12l3 2"/></svg>Wait 1 hour</span></li><li class="fs k-email" style="--i:2"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.5 7.5l8.500 6 8.500-6"/></svg></i><div><small>Email 1</small>Reminder with the items left behind</div></li><li class="fw" style="--i:3"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.500V12l3 2"/></svg>Wait 1 day</span></li><li class="fs k-split" style="--i:4"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 9l-6 6v5M12 9l6 6v5"/></svg></i><div><small>Split</small>Has ordered before?</div></li><li class="fs k-email" style="--i:5"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.5 7.5l8.500 6 8.500-6"/></svg></i><div><small>Email 2</small>Answer objections, add reviews</div></li><li class="fs k-sms" style="--i:6"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></i><div><small>SMS</small>Short nudge for consented subscribers</div></li></ol></figure>
+<p>The key difference is timing. A campaign goes out when it suits you. A flow goes out when it suits the customer.</p>
+<h2 id="what-the-published-data-says">What the published data says</h2>
+<p>Two large platform datasets cover this, and they point the same way with different numbers.</p>
+<figure class="tbl rv"><div class="tbl-s"><table><thead><tr><th>Source</th><th>Flow share of sends</th><th>Flow share of email revenue</th></tr></thead><tbody><tr><td>Klaviyo benchmarks, 2026</td><td>5.3%</td><td>Nearly 41%</td></tr><tr><td>Omnisend 2026 report (2025 data)</td><td>2%</td><td>30%</td></tr></tbody></table></div><figcaption>Share of email sends and email revenue coming from automated flows.</figcaption></figure>
+<p><a href="https://www.klaviyo.com/products/email-marketing/benchmarks" target="_blank" rel="noopener">Klaviyo's email marketing benchmarks</a> report that flows generated nearly 41% of total email revenue from just 5.3% of sends, with campaigns making up the other 94.7% of volume. Klaviyo puts revenue per recipient for flows at nearly 18 times that of campaigns.</p>
+<p><a href="https://www.omnisend.com/resources/reports/2026-ecommerce-marketing-report/" target="_blank" rel="noopener">Omnisend's 2026 ecommerce marketing report</a>, based on emails sent in 2025, found automated emails were 2% of sends and 30% of email driven revenue. Each automated email earned $2.87 per send against $0.18 for a scheduled campaign, about 16 times more.</p>
+<p>The two platforms serve different mixes of stores, so I would not expect the numbers to match. The honest summary is a range: flows bring in roughly 30% to 41% of email revenue from a low single digit share of sends.</p>
+<p>There is also a target that is not measured data. In <a href="https://www.klaviyo.com/blog/how-to-improve-your-email-revenue" target="_blank" rel="noopener">an article on Klaviyo's blog</a>, a Klaviyo partner agency describes aiming for about half of email revenue from flows and half from campaigns. That is higher than either platform average, which makes sense: averages include many accounts with only one or two flows live.</p>
+<figure class="barsfig rv"><b class="fig-t">Campaigns vs flows: average click and placed order rate</b><div class="br"><span>Campaign click rate</span><div class="bt"><i style="--w:30.3%"></i></div><b>1.69%</b></div><div class="br"><span>Flow click rate</span><div class="bt"><i style="--w:100.0%"></i></div><b>5.58%</b></div><div class="br"><span>Campaign placed order rate</span><div class="bt"><i style="--w:2.9%"></i></div><b>0.16%</b></div><div class="br"><span>Flow placed order rate</span><div class="bt"><i style="--w:37.8%"></i></div><b>2.11%</b></div><figcaption>Source: Klaviyo email marketing benchmarks, 2026</figcaption></figure>
+<h2 id="why-flows-earn-more-per-send">Why flows earn more per send</h2>
+<p>The chart above uses figures from <a href="https://www.klaviyo.com/uk/blog/email-marketing-benchmarks-open-click-and-conversion-rates" target="_blank" rel="noopener">Klaviyo's benchmark article</a>. Open rates are almost the same for both, 31% for campaigns and 32.2% for flows. The gap opens after the open: flows get more than three times the clicks and about 13 times the placed order rate.</p>
+<p>The reasons are not mysterious.</p>
+<ul class="list"><li><strong>Intent.</strong> A flow reaches someone minutes or hours after they showed interest. A campaign reaches everyone, including people who are not thinking about you today.</li><li><strong>Relevance.</strong> The flow email is about the exact product they looked at or the order they just placed.</li><li><strong>Small audience.</strong> Flows go to few people, so a handful of orders makes the per send number look large.</li><li><strong>New buyers.</strong> Klaviyo reports that nearly 48% of flow revenue comes from new buyers, against 16% for campaigns. Welcome and abandonment flows are doing first purchase work.</li></ul>
+<p>Omnisend's report adds that welcome and abandoned cart messages accounted for 76% of all automation generated orders. A small number of flows do most of the earning.</p>
+<aside class="callout rv"><b>Per send is not the whole picture</b><p>Flows win per send, but they cannot grow on their own. They only fire when someone visits, signs up or buys, and campaigns are a big part of what brings people back to the site to trigger them. The two feed each other.</p></aside>
+<h2 id="what-a-healthy-mix-looks-like">What a healthy mix looks like</h2>
+<p>I treat the published figures as a floor and the half and half target as the goal. Between 40% and 50% of email revenue from flows is a comfortable place for most stores that send campaigns every week.</p>
+<p>Your business model shifts it. Stores with a long consideration period or a high order value tend to lean on abandonment and welcome flows. Stores with frequent launches or a consumable product tend to earn more from campaigns, because there is always a reason to send.</p>
+<h2 id="what-it-means-if-you-are-far-off">What it means if you are far off</h2>
+<h3>Flows well under 30%</h3>
+<p>This usually means the basics are missing or broken. Check that welcome, abandoned checkout, abandoned cart, browse abandonment and post purchase flows are live, have more than one email, and are actually triggering. A flow that is live but receives almost nobody is a tracking or filter problem.</p>
+<h3>Flows carrying most of the revenue</h3>
+<p>This looks like good news but often means campaigns are neglected. If you send once or twice a month, flows will dominate by default. It can also mean flows are carrying heavy discounts. More regular campaigns to engaged segments usually lift total email revenue here, even though the flow share drops.</p>
+<h3>A split that swings month to month</h3>
+<p>That is normal around big sale periods, when campaign revenue spikes. Compare the same month year over year or use a rolling 90 day view.</p>
+<div class="check rv"><b class="fig-t">Reading your own split</b><ul><li>Use the same attribution settings for the whole period</li><li>Look at 90 days, not one month</li><li>List which flows are live and how many emails each has</li><li>Check each flow's recipients, not only its revenue</li><li>Count campaigns sent per week and to which segments</li><li>Note any large sale that skews the period</li></ul></div>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Pull flow revenue and campaign revenue for the last 90 days and work out the split. If flows are under 30%, build or repair the core flows before anything else, starting with welcome and abandoned checkout. If flows carry most of your email revenue, set a weekly campaign schedule and stick to it for two months. If you are in the 40% to 50% range, the next gains come from testing inside each flow. And if you want help working out which side is holding you back, book a call and I will go through the account with you.</p>
+<section class="faq"><h2 id="faq">Questions people ask</h2><details><summary>What percentage of email revenue should come from flows?</summary><p>Published platform data puts it at 30% (Omnisend) to nearly 41% (Klaviyo). A common agency target is about half from flows and half from campaigns.</p></details><details><summary>What share of email sends are flows?</summary><p>A very small share. Klaviyo's benchmarks put flows at 5.3% of sends and Omnisend's report puts automated emails at 2% of sends.</p></details><details><summary>Why do flows make more money per email than campaigns?</summary><p>They are triggered by behavior, so they reach people at a moment of high intent with a relevant message. Klaviyo reports flow click rates of 5.58% against 1.69% for campaigns.</p></details><details><summary>Should I stop sending campaigns and focus on flows?</summary><p>No. Flows only fire when people visit, sign up or buy, and campaigns bring subscribers back to the site. In Klaviyo's data campaigns still account for the larger share of email revenue.</p></details></section><a class="case rv" href="beverage.html"><small>Related case study</small><b>From almost no email revenue to a real retention channel</b><span>Read the case study <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><section class="sources"><h2>Sources</h2><ol><li><a href="https://www.klaviyo.com/products/email-marketing/benchmarks" target="_blank" rel="noopener">2026 Email Marketing Benchmarks by Industry, Klaviyo</a></li><li><a href="https://www.klaviyo.com/uk/blog/email-marketing-benchmarks-open-click-and-conversion-rates" target="_blank" rel="noopener">Email Marketing Benchmarks 2026, Klaviyo blog</a></li><li><a href="https://www.omnisend.com/resources/reports/2026-ecommerce-marketing-report/" target="_blank" rel="noopener">Omnisend&#x27;s 2026 ecommerce marketing report</a></li><li><a href="https://www.omnisend.com/blog/benefits-of-email-automation/" target="_blank" rel="noopener">8 Benefits of Email Automation: Data From 150,000 Brands, Omnisend</a></li><li><a href="https://www.klaviyo.com/blog/how-to-improve-your-email-revenue" target="_blank" rel="noopener">How to Improve Your Email Marketing Revenue for D2C Brands, Klaviyo blog</a></li></ol></section></article></div>
+<section class="wrap morep"><h2 class="rv">Keep reading</h2><div class="grid"><a class="card rv " href="what-percentage-of-revenue-should-come-from-email.html" data-cat="benchmarks"><div class="card-c"><svg class="cover" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="What Percentage of Shopify Revenue Should Come From Email?">
+<rect width="800" height="450" fill="#FBE9EF"/><circle cx="700" cy="-40" r="260" fill="#F6D3DE" opacity=".45"/>
+<text x="66" y="92" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="19" letter-spacing="3" fill="#D1184F">BENCHMARKS</text>
+<rect x="64" y="110" width="44" height="4" rx="2" fill="#D1184F"/><text x="64" y="262" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="66" letter-spacing="-3" fill="#1A1A1A">% from email</text><g transform="translate(470 100)"><rect class="bar" x="0" y="160" width="34" height="70" rx="9" fill="#F6D3DE" style="--i:0"/><rect class="bar" x="52" y="110" width="34" height="120" rx="9" fill="#F6D3DE" style="--i:1"/><rect class="bar" x="104" y="135" width="34" height="95" rx="9" fill="#F6D3DE" style="--i:2"/><rect class="bar" x="156" y="60" width="34" height="170" rx="9" fill="#F6D3DE" style="--i:3"/><rect class="bar" x="208" y="20" width="34" height="210" rx="9" fill="#D1184F" style="--i:4"/><path d="M-20 92h290" stroke="#1A1A1A" stroke-opacity=".45" stroke-width="3" stroke-dasharray="3 11" stroke-linecap="round"/>
+<circle cx="225" cy="-6" r="11" fill="#FFFFFF" stroke="#D1184F" stroke-width="6"/></g></svg></div>
+<div class="card-b"><span class="cat">Benchmarks</span><h3>What Percentage of Shopify Revenue Should Come From Email?</h3><p>Most published figures land between a quarter and a third of store revenue. Here is where that number comes from and how to read yours.</p><span class="more">7 min read <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div></a><a class="card rv " href="good-popup-submit-rate.html" data-cat="benchmarks"><div class="card-c"><svg class="cover" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="What Is a Good Popup Submit Rate for an Ecommerce Store?">
+<rect width="800" height="450" fill="#D1184F"/><circle cx="700" cy="-40" r="260" fill="#E0537C" opacity=".45"/>
+<text x="66" y="92" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="19" letter-spacing="3" fill="#FFFFFF">BENCHMARKS</text>
+<rect x="64" y="110" width="44" height="4" rx="2" fill="#FFFFFF"/><text x="64" y="262" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="66" letter-spacing="-3" fill="#FFFFFF">Submit rate</text><g transform="translate(470 100)"><rect class="bar" x="0" y="170" width="34" height="60" rx="9" fill="#E0537C" style="--i:0"/><rect class="bar" x="52" y="130" width="34" height="100" rx="9" fill="#E0537C" style="--i:1"/><rect class="bar" x="104" y="80" width="34" height="150" rx="9" fill="#E0537C" style="--i:2"/><rect class="bar" x="156" y="100" width="34" height="130" rx="9" fill="#E0537C" style="--i:3"/><rect class="bar" x="208" y="10" width="34" height="220" rx="9" fill="#FFFFFF" style="--i:4"/><path d="M-20 92h290" stroke="#FFFFFF" stroke-opacity=".45" stroke-width="3" stroke-dasharray="3 11" stroke-linecap="round"/>
+<circle cx="225" cy="-16" r="11" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="6"/></g></svg></div>
+<div class="card-b"><span class="cat">Benchmarks</span><h3>What Is a Good Popup Submit Rate for an Ecommerce Store?</h3><p>Klaviyo says aim for 3% or higher. Other published averages run from about 2% to 11%. Here is why, and what to aim for.</p><span class="more">6 min read <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div></a><a class="card rv " href="reduce-subscription-churn-with-email.html" data-cat="industry"><div class="card-c"><svg class="cover" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" role="img" aria-label="How Subscription Brands Reduce Churn With Email">
+<rect width="800" height="450" fill="#D1184F"/><circle cx="700" cy="-40" r="260" fill="#E0537C" opacity=".45"/>
+<text x="66" y="92" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="19" letter-spacing="3" fill="#FFFFFF">BY INDUSTRY</text>
+<rect x="64" y="110" width="44" height="4" rx="2" fill="#FFFFFF"/><text x="64" y="262" font-family="Work Sans,Arial,sans-serif" font-weight="600" font-size="84" letter-spacing="-3" fill="#FFFFFF">Churn</text><g transform="translate(480 92)" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="125" cy="250" rx="150" ry="18" fill="#E0537C"/>
+<rect x="40" y="96" width="170" height="146" rx="14" fill="#FFFFFF"/><path d="M40 130h170M110 96v34h30V96" stroke="#E0537C" stroke-width="8" fill="none"/>
+<g class="spin" style="transform-origin:125px 44px"><path d="M171 44a46 46 0 1 1-14-33" fill="none" stroke="#FFFFFF" stroke-width="10"/><path d="M162-8v22h-22" fill="none" stroke="#FFFFFF" stroke-width="10"/></g></g></svg></div>
+<div class="card-b"><span class="cat">By industry</span><h3>How Subscription Brands Reduce Churn With Email</h3><p>Most subscription churn is preventable. Here are the emails I set up for upcoming orders, failed payments, skips and cancellations.</p><span class="more">7 min read <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></div></a></div></section>
+<section id="book" class="wrap"><div class="cta rv"><h2>Want this done for your brand?</h2><p>If you would rather hand this over than build it yourself, let&rsquo;s talk about your email and SMS retention.</p><a class="btn white lg" href="contact.html">Book a strategy call <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div></section></main>
+<footer><div class="wrap"><a href="index.html" aria-label="shahwarsends"><svg class="logo" viewBox="-129.71 -382.14 2826.04 511.85" role="img" aria-label="shahwarsends"><path fill="#FFFFFF" transform="translate(0.000,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#FFFFFF" transform="translate(149.940,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V740H168V470Q195 512 242.5 535.0Q290 558 349 558Q411 558 461.0 531.5Q511 505 539.5 452.0Q568 399 568 323Z"/><path fill="#FFFFFF" transform="translate(340.131,0.000) scale(0.341113,-0.341113)" d="M303 557Q375 557 428.0 526.0Q481 495 507 448V548H599V0H507V102Q480 54 426.5 22.5Q373 -9 302 -9Q229 -9 170.0 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 303 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#FFFFFF" transform="translate(542.602,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V740H168V470Q195 512 242.5 535.0Q290 558 349 558Q411 558 461.0 531.5Q511 505 539.5 452.0Q568 399 568 323Z"/><path fill="#FFFFFF" transform="translate(732.793,0.000) scale(0.341113,-0.341113)" d="M807 548 636 0H542L410 435L278 0H184L12 548H105L231 88L367 548H460L593 87L717 548Z"/><path fill="#FFFFFF" transform="translate(984.384,0.000) scale(0.341113,-0.341113)" d="M303 557Q375 557 428.0 526.0Q481 495 507 448V548H599V0H507V102Q480 54 426.5 22.5Q373 -9 302 -9Q229 -9 170.0 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 303 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#FFFFFF" transform="translate(1186.855,0.000) scale(0.341113,-0.341113)" d="M345 558V464H321Q168 464 168 298V0H77V548H168V459Q192 506 236.5 532.0Q281 558 345 558Z"/><path fill="#D1184F" transform="translate(1285.969,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#D1184F" transform="translate(1435.908,0.000) scale(0.341113,-0.341113)" d="M574 240H136Q141 159 191.5 113.5Q242 68 314 68Q373 68 412.5 95.5Q452 123 468 169H566Q544 90 478.0 40.5Q412 -9 314 -9Q236 -9 174.5 26.0Q113 61 78.0 125.5Q43 190 43 275Q43 360 77.0 424.0Q111 488 172.5 522.5Q234 557 314 557Q392 557 452.0 523.0Q512 489 544.5 429.5Q577 370 577 295Q577 269 574 240ZM310 480Q241 480 192.5 436.0Q144 392 137 314H483Q483 366 460.0 403.5Q437 441 397.5 460.5Q358 480 310 480Z"/><path fill="#D1184F" transform="translate(1619.277,0.000) scale(0.341113,-0.341113)" d="M568 323V0H478V310Q478 392 437.0 435.5Q396 479 325 479Q253 479 210.5 434.0Q168 389 168 303V0H77V548H168V470Q195 512 241.5 535.0Q288 558 344 558Q444 558 506.0 497.5Q568 437 568 323Z"/><path fill="#D1184F" transform="translate(1809.468,0.000) scale(0.341113,-0.341113)" d="M304 557Q368 557 423.0 527.5Q478 498 507 450V740H599V0H507V103Q480 54 427.0 22.5Q374 -9 303 -9Q230 -9 170.5 27.0Q111 63 77.0 128.0Q43 193 43 276Q43 360 77.0 423.5Q111 487 170.5 522.0Q230 557 304 557ZM321 478Q270 478 228.0 454.0Q186 430 161.0 384.0Q136 338 136 276Q136 213 161.0 166.5Q186 120 228.0 95.5Q270 71 321 71Q372 71 414.5 95.5Q457 120 482.0 166.5Q507 213 507 275Q507 337 482.0 383.0Q457 429 414.5 453.5Q372 478 321 478Z"/><path fill="#D1184F" transform="translate(2011.939,0.000) scale(0.341113,-0.341113)" d="M47 161H141Q145 120 179.5 94.0Q214 68 270 68Q322 68 352.0 91.0Q382 114 382 149Q382 185 350.0 202.5Q318 220 251 237Q190 253 151.5 269.5Q113 286 85.5 318.5Q58 351 58 404Q58 446 83.0 481.0Q108 516 154.0 536.5Q200 557 259 557Q350 557 406.0 511.0Q462 465 466 385H375Q372 428 340.5 454.0Q309 480 256 480Q207 480 178.0 459.0Q149 438 149 404Q149 377 166.5 359.5Q184 342 210.5 331.5Q237 321 284 308Q343 292 380.0 276.5Q417 261 443.5 230.0Q470 199 471 149Q471 104 446.0 68.0Q421 32 375.5 11.5Q330 -9 271 -9Q208 -9 158.0 12.5Q108 34 79.0 72.5Q50 111 47 161Z"/><path fill="#D1184F" d="M 2566.61,-232.68 L 2320.56,-171.33 L 2384.50,-124.19 L 2290.21,-52.50 L 2485.24,-181.02 L 2414.85,-104.81 L 2451.66,-16.34 Z"/></svg></a><span>Email and SMS retention for ecommerce brands.</span>
+<nav aria-label="Footer"><a href="case-studies.html">Case studies</a><a href="index.html#designs">Designs</a><a href="about.html">About</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav></div></footer><script>(function(){
+  document.documentElement.classList.add('js');
+  var nav=document.getElementById('nav'),prog=document.getElementById('prog');
+  function onScroll(){
+    nav.classList.toggle('stuck',scrollY>8);
+    if(prog){var h=document.documentElement.scrollHeight-innerHeight;prog.style.transform='scaleX('+(h>0?Math.min(scrollY/h,1):0)+')'}
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -5% 0px'});
+    els.forEach(function(e){io.observe(e)});
+    var links=document.querySelectorAll('.toc a');
+    if(links.length){
+      var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+      var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-20% 0px -70% 0px'});
+      document.querySelectorAll('.post h2[id]').forEach(function(h){so.observe(h)});
+    }
+  }else{els.forEach(function(e){e.classList.add('in')})}
+  var chips=document.querySelectorAll('.chip'),cards=document.querySelectorAll('#grid .card');
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    chips.forEach(function(x){x.classList.remove('on')});c.classList.add('on');
+    var f=c.dataset.f;
+    cards.forEach(function(k){var show=f==='all'||k.dataset.cat===f;k.classList.toggle('hide',!show);if(show)k.classList.add('in')});
+  })});
+})();
+</script></body></html>

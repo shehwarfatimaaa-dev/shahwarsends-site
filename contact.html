@@ -481,7 +481,7 @@ body.lb-on{overflow:hidden}
     var btn=form.querySelector('button');btn.disabled=true;
     function ok(){document.getElementById('dname').textContent=data.name.split(' ')[0];box.classList.add('sent');box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}
     if(!FORM_ENDPOINT){setTimeout(ok,500);return}
-    data._subject='New enquiry from shahwarsends.com'+(data.name?' - '+data.name:'');data._template='table';data._captcha='false';
+    data._subject='New enquiry from shahwarsends.com'+(data.name?' - '+data.name:'');data._template='table';data._captcha='false';data._autoresponse="Hi, thank you for getting in touch! I've received your message and I'll personally reply within 1 business day to set up your strategy call. Talk soon, Shahwar | shahwarsends.com";
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json()}).then(function(j){if(String(j.success)==='true'){ok();return}btn.disabled=false;note.textContent=j.message||'Something went wrong sending your message. Please try again.'}).catch(function(){btn.disabled=false;note.textContent='Something went wrong sending your message. Please try again.'});
   });

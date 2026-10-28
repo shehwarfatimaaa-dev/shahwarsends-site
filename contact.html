@@ -382,14 +382,14 @@ body.lb-on{overflow:hidden}
       <ul class="c-list"><li>A reply from me, personally</li><li>A clear look at where you&rsquo;re losing revenue</li><li>No pressure and no jargon</li></ul>
     </div>
     <div class="form" id="formbox">
-      <form id="cform" action="https://formsubmit.co/hello@shahwarsends.com" method="POST" novalidate><input type="hidden" name="_subject" value="New enquiry from shahwarsends.com"><input type="hidden" name="_template" value="table"><input type="hidden" name="_next" value="https://shahwarsends.com/thank-you.html"><input type="hidden" name="_autoresponse" value="Hi, thank you for getting in touch! I&#39;ve received your message and I&#39;ll personally reply within 1 business day to set up your strategy call. Talk soon, Shahwar | shahwarsends.com"><input type="hidden" name="need" id="f-need"><input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
+      <form id="cform" novalidate><input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
         <div class="fg">
           <div class="f"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required><span class="err">Please add your name.</span></div>
           <div class="f"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err">Please add a valid email.</span></div>
           <div class="f"><label for="f-site">Store website</label><input id="f-site" name="website" placeholder="yourbrand.com" autocomplete="url"></div>
           <div class="f"><label for="f-rev">Monthly revenue</label><select id="f-rev" name="revenue"><option value="">Choose one</option><option>Under $10K</option><option>$10K to $50K</option><option>$50K to $200K</option><option>$200K+</option></select></div>
           <fieldset class="f full"><legend>What do you need help with?</legend><div class="picks">
-            <label><input type="checkbox" data-need value="Flows">Flows</label><label><input type="checkbox" data-need value="Campaigns">Campaigns</label><label><input type="checkbox" data-need value="SMS">SMS</label><label><input type="checkbox" data-need value="Popups and forms">Popups and forms</label><label><input type="checkbox" data-need value="Design">Design</label><label><input type="checkbox" data-need value="Not sure yet">Not sure yet</label>
+            <label><input type="checkbox" name="need" value="Flows">Flows</label><label><input type="checkbox" name="need" value="Campaigns">Campaigns</label><label><input type="checkbox" name="need" value="SMS">SMS</label><label><input type="checkbox" name="need" value="Popups and forms">Popups and forms</label><label><input type="checkbox" name="need" value="Design">Design</label><label><input type="checkbox" name="need" value="Not sure yet">Not sure yet</label>
           </div></fieldset>
           <div class="f full"><label for="f-msg">Anything else?</label><textarea id="f-msg" name="message" placeholder="What's going on with your email right now?"></textarea></div>
         </div>
@@ -477,12 +477,13 @@ body.lb-on{overflow:hidden}
   form.addEventListener('submit',function(ev){ev.preventDefault();
     var req=[].slice.call(form.querySelectorAll('[required]')),bad=req.filter(function(i){return !check(i)});
     if(bad.length){bad[0].focus();return}
-    var picks=[].slice.call(form.querySelectorAll('[data-need]:checked')).map(function(c){return c.value});
-    document.getElementById('f-need').value=picks.join(', ')||'Not specified';
-    var nm=document.getElementById('f-name').value.trim();
-    form.querySelector('[name="_subject"]').value='New enquiry from shahwarsends.com - '+nm;
+    var fd=new FormData(form),data={};fd.forEach(function(v,k){data[k]=data[k]?data[k]+', '+v:v});
     var btn=form.querySelector('button');btn.disabled=true;
-    HTMLFormElement.prototype.submit.call(form);
+    function ok(){document.getElementById('dname').textContent=data.name.split(' ')[0];box.classList.add('sent');box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}
+    if(!FORM_ENDPOINT){setTimeout(ok,500);return}
+    data._subject='New enquiry from shahwarsends.com'+(data.name?' - '+data.name:'');data._template='table';data._captcha='false';
+    fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json()}).then(function(j){if(String(j.success)==='true'){ok();return}btn.disabled=false;note.textContent=j.message||'Something went wrong sending your message. Please try again.'}).catch(function(){btn.disabled=false;note.textContent='Something went wrong sending your message. Please try again.'});
   });
 })();
 </script></body></html>

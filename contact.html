@@ -382,7 +382,7 @@ body.lb-on{overflow:hidden}
       <ul class="c-list"><li>A reply from me, personally</li><li>A clear look at where you&rsquo;re losing revenue</li><li>No pressure and no jargon</li></ul>
     </div>
     <div class="form" id="formbox">
-      <form id="cform" novalidate>
+      <form id="cform" novalidate><input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px">
         <div class="fg">
           <div class="f"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required><span class="err">Please add your name.</span></div>
           <div class="f"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required><span class="err">Please add a valid email.</span></div>
@@ -421,7 +421,7 @@ body.lb-on{overflow:hidden}
   </div>
 </footer><script>(function(){
   // set to your form service URL (for example a Formspree or Web3Forms endpoint) to receive messages
-  var FORM_ENDPOINT="";
+  var FORM_ENDPOINT="https://formsubmit.co/ajax/hello@shahwarsends.com";
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var nav=document.getElementById('nav');
   var bg=document.getElementById('burger');
@@ -481,8 +481,9 @@ body.lb-on{overflow:hidden}
     var btn=form.querySelector('button');btn.disabled=true;
     function ok(){document.getElementById('dname').textContent=data.name.split(' ')[0];box.classList.add('sent');box.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'})}
     if(!FORM_ENDPOINT){setTimeout(ok,500);return}
+    data._subject='New enquiry from shahwarsends.com'+(data.name?' - '+data.name:'');data._template='table';data._captcha='false';
     fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){if(!r.ok)throw 0;ok()}).catch(function(){btn.disabled=false;note.textContent='Something went wrong sending your message. Please try again.'});
+      .then(function(r){return r.json()}).then(function(j){if(String(j.success)==='true'){ok();return}btn.disabled=false;note.textContent=j.message||'Something went wrong sending your message. Please try again.'}).catch(function(){btn.disabled=false;note.textContent='Something went wrong sending your message. Please try again.'});
   });
 })();
 </script></body></html>

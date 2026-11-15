@@ -110,11 +110,11 @@ var SS_CRM_URL = "https://script.google.com/macros/s/AKfycbyAwcYiThzACNQ3KT1d5BZ
       '<div class="ssp-row"><button class="ssp-btn ssp-yes" data-a="yes" type="button">Yes</button><button class="ssp-btn ssp-no" data-a="no" type="button">No</button></div></div>' +
       // step 3
       '<div class="ssp-step" data-s="3">' +
-      '<h3 class="ssp-q2">Where should we send your free audit?</h3>' +
+      '<h3 class="ssp-q2">What&rsquo;s your best email to reach you?</h3>' +
       '<form class="ssp-f" novalidate>' +
       '<input name="email" type="email" autocomplete="email" placeholder="Your email, e.g. emma@yourbrand.com" aria-label="Work email" required>' +
       '<p class="ssp-err" aria-live="polite"></p>' +
-      '<button class="ssp-btn ssp-yes" type="submit">Send it</button></form>' +
+      '<button class="ssp-btn ssp-yes" type="submit">Add 30% to my revenue</button></form>' +
       '</div>' +
       // done
       '<div class="ssp-step ssp-ok" data-s="ok"><div class="ssp-tick"><svg viewBox="0 0 30 30"><path d="M7 15.5l5.5 5.5L23 10"/></svg></div>' +
@@ -173,7 +173,7 @@ var SS_CRM_URL = "https://script.google.com/macros/s/AKfycbyAwcYiThzACNQ3KT1d5BZ
       window.ssSendLead({ source: "Popup", email: em.value.trim(), answer: answer }).then(function () {
         go("ok"); setTimeout(close, 6000);
       }).catch(function () {
-        btn.disabled = false; btn.textContent = "Send my free audit";
+        btn.disabled = false; btn.textContent = "Add 30% to my revenue";
         err.textContent = "Sorry, that didn't send. Please try again, or email hello@shahwarsends.com.";
       });
     });

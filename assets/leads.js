@@ -9,6 +9,7 @@ var SS_CRM_URL = "https://script.google.com/macros/s/AKfycbyAwcYiThzACNQ3KT1d5BZ
   window.ssSendLead = function (data) {
     if (!SS_CRM_URL) return Promise.reject(new Error("not-connected"));
     data.page = location.pathname;
+    if (window.ssVid) data.vid = window.ssVid;
     var body = JSON.stringify(data);
     return fetch(SS_CRM_URL, { method: "POST", body: body })   // plain text: no preflight
       .then(function (r) { return r.json(); })
@@ -19,11 +20,54 @@ var SS_CRM_URL = "https://script.google.com/macros/s/AKfycbyAwcYiThzACNQ3KT1d5BZ
         });
   };
 
+
+  /* ---------- visitor tracking (anonymous ID, linked to the lead once they give their email) ---------- */
+  (function () {
+    if (!SS_CRM_URL || navigator.webdriver || navigator.globalPrivacyControl || /^(localhost|127\.)/.test(location.hostname)) return;
+    var ls = {}; try { ls = localStorage; } catch (e) {}
+    function get(k) { try { return ls.getItem(k); } catch (e) { return null; } }
+    function set(k, v) { try { ls.setItem(k, v); } catch (e) {} }
+    function cookie(k) { var m = document.cookie.match("(?:^|; )" + k + "=([^;]*)"); return m ? m[1] : null; }
+
+    var vid = get("ss_vid") || cookie("ss_vid");
+    if (!vid || !/^v[a-z0-9]{8,30}$/.test(vid)) vid = "v" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    set("ss_vid", vid);
+    document.cookie = "ss_vid=" + vid + ";max-age=34560000;path=/;SameSite=Lax" + (location.protocol === "https:" ? ";Secure" : "");
+    window.ssVid = vid;
+
+    // a new visit starts after 30 minutes without activity
+    var now = Date.now(), lastAt = +get("ss_last") || 0, visit = +get("ss_visit") || 0, nv = now - lastAt > 30 * 60 * 1000;
+    if (nv) { visit += 1; set("ss_visit", String(visit)); }
+    set("ss_last", String(now));
+
+    function send(o) {
+      var body = JSON.stringify(o);
+      try { if (navigator.sendBeacon && navigator.sendBeacon(SS_CRM_URL, new Blob([body], { type: "text/plain" }))) return; } catch (e) {}
+      try { fetch(SS_CRM_URL, { method: "POST", mode: "no-cors", keepalive: true, body: body }); } catch (e) {}
+    }
+
+    var q = new URLSearchParams(location.search), ref = document.referrer;
+    if (ref && ref.indexOf(location.host) >= 0) ref = "";
+    var tz = ""; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+    send({
+      type: "visit", vid: vid, page: location.pathname, ref: nv ? ref : "", nv: nv ? 1 : 0, visit: visit,
+      utm_source: q.get("utm_source") || "", utm_medium: q.get("utm_medium") || "", utm_campaign: q.get("utm_campaign") || "",
+      tz: tz, lang: navigator.language || "", device: /Mobi|Android|iPhone/i.test(navigator.userAgent) ? "Mobile" : (/iPad|Tablet/i.test(navigator.userAgent) ? "Tablet" : "Desktop")
+    });
+
+    // links in your emails can carry ?ss_e=their@email.com so the click identifies them (like Klaviyo)
+    var em = q.get("ss_e");
+    if (em && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em) && em !== get("ss_em")) {
+      set("ss_em", em); send({ type: "identify", vid: vid, email: em });
+    }
+    if (em && history.replaceState) { q.delete("ss_e"); history.replaceState(null, "", location.pathname + (q.toString() ? "?" + q : "") + location.hash); }
+  })();
+
   /* ---------- popup ---------- */
   var KEY = "ss_pop_v1";
   function seen() { try { var t = +localStorage.getItem(KEY); return t && Date.now() - t < 7 * 864e5; } catch (e) { return false; } }
   function mark() { try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {} }
-  if (/contact\.html|thank-you/.test(location.pathname) || seen()) return;
+  if (/\/contact|thank-you|privacy/.test(location.pathname) || seen()) return;
 
   var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   var css = `
